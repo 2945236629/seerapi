@@ -155,7 +155,10 @@ def effect_handler_default(
         info_args[param_position] = type_combination_map[type_combination_id]
     # 如果参数有预定义的描述信息(param.infos)
     elif isinstance(param_infos := param.infos, list):
-        pos = effect_args[param_position]
+        try:
+            pos = effect_args[param_position]
+        except IndexError:
+            return info_args
         try:
             # 使用参数值作为索引，在infos中查找对应的描述文本并使用
             info_args[param_position] = param_infos[pos]
